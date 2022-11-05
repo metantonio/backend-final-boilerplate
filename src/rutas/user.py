@@ -57,7 +57,7 @@ def login():
         raise APIException("usuario o password no coinciden", status_code=401)
 
     access_token = create_access_token(identity= user.id)
-    return jsonify({"token": access_token})
+    return jsonify({"token": access_token, "email":user.email}), 200
 
 @app.route('/helloprotected', methods=['get']) #endpoint
 @jwt_required() #decorador que protege al endpoint
@@ -96,3 +96,25 @@ def logout():
     #db.session.commit()
 
     return jsonify({"message":"token eliminado"})
+
+@app.route('/lista-usuarios', methods=['get'])
+@jwt_required()
+def allUsers():
+    users = User.query.all() #Objeto de SQLAlchemy
+    users = list(map(lambda item: item.serialize(), users))
+
+    response_body={
+        "lista": users
+    }
+    return jsonify(response_body), 200
+
+
+
+@app.route('/user/<int:user_id>', methods=['GET'])
+@jwt_required()
+def get_user_by_id(user_id):
+    user = User.query.get(user_id)
+    if user == None:
+        raise APIException("El usuario no existe", status_code=400)  
+    #print(user.serialize())
+    return jsonify(user.serialize()), 200
