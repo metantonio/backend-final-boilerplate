@@ -19,8 +19,8 @@ def enviarCorreo():
     mensaje = body["mensaje"]
     destinatario = body["para"]
     asunto = body["asunto"]
-
     print(mensaje, destinatario, asunto)
+    
     message = MIMEMultipart('alternative') #json, #text #application/pdf
     message["Subject"] = asunto
     message["From"] = EMAIL
