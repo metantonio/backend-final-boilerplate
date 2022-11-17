@@ -34,7 +34,7 @@ setup_admin(app)
 from src.modelos import User 
 
 ##### Importar las Rutas ####
-from src.rutas import signup
+from src.rutas import signup, enviarCorreo
 
 
 
