@@ -31,10 +31,10 @@ CORS(app)
 setup_admin(app)
 
 #####  Importar Modelos  ####
-from src.modelos import User 
+from src.modelos import User, Imagen 
 
 ##### Importar las Rutas ####
-from src.rutas import signup, enviarCorreo
+from src.rutas import signup, enviarCorreo, subirImagen, allImages
 
 
 
